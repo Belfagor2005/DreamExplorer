@@ -24,7 +24,15 @@ from os import path as os_path, listdir, stat as os_stat
 from Components.MenuList import MenuList
 from Components.Harddisk import harddiskmanager
 from Components.config import config
-from enigma import RT_HALIGN_LEFT, eListboxPythonMultiContent, eServiceReference, eServiceCenter, gFont, iServiceInformation
+from enigma import (
+    RT_HALIGN_LEFT,
+    RT_VALIGN_CENTER,
+    eListboxPythonMultiContent,
+    eServiceReference,
+    eServiceCenter,
+    gFont,
+    iServiceInformation,
+)
 from Tools.LoadPixmap import LoadPixmap
 
 
@@ -65,7 +73,7 @@ EXTENSIONS = {
 
 def FileEntryComponent(name, absolute=None, isDir=False):
     res = [(absolute, isDir)]
-    res.append((eListboxPythonMultiContent.TYPE_TEXT, 40, 2, 1000, 22, 0, RT_HALIGN_LEFT, name))
+    res.append((eListboxPythonMultiContent.TYPE_TEXT, 60, 0, 1000, 40, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, name))
     
     if isDir:
         png = LoadPixmap("/usr/lib/enigma2/python/Plugins/Extensions/DreamExplorer/res/dir.png")
@@ -77,7 +85,7 @@ def FileEntryComponent(name, absolute=None, isDir=False):
             png = None
     
     if png is not None:
-        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 12, 3, 20, 20, png))
+        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 12, 0, 35, 35, png))
     
     return res
 
@@ -99,8 +107,8 @@ class FileList(MenuList):
         self.inhibitMounts = inhibitMounts or []
         self.refreshMountpoints()
         self.changeDir(directory)
-        self.l.setFont(0, gFont("Regular", 18))
-        self.l.setItemHeight(26)
+        self.l.setFont(0, gFont("Regular", 24))
+        self.l.setItemHeight(34)
         self.serviceHandler = eServiceCenter.getInstance()
 
     def refreshMountpoints(self):
@@ -232,9 +240,9 @@ class FileList(MenuList):
                         self.list.append(FileEntryComponent(name=name, absolute=x , isDir=False))
                     else:
                         res = [(x, False)]
-                        res.append((eListboxPythonMultiContent.TYPE_TEXT, 40, 2, 1000, 22, 0, RT_HALIGN_LEFT, name + " [" + self.getTSLength(path) + "]"))
+                        res.append((eListboxPythonMultiContent.TYPE_TEXT, 60, 2, 1000, 40, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, name + " [" + self.getTSLength(path) + "]"))
                         png = LoadPixmap("/usr/lib/enigma2/python/Plugins/Extensions/DreamExplorer/res/movie.png")
-                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 12, 3, 20, 20, png))
+                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 12, 3, 35, 35, png))
                         self.list.append(res)
         self.l.setList(self.list)
         if select is not None:

@@ -25,14 +25,14 @@ from Components.ActionMap import NumberActionMap
 from Components.Label import Label
 from Components.Input import Input
 from Tools.BoundFunction import boundFunction
-from myNumericalTextInput import myNumericalTextInput
+from .myNumericalTextInput import myNumericalTextInput
 from enigma import eRCInput, getPrevAsciiCode, getDesktop
 
 
 class vInputBox(Screen, myNumericalTextInput):
     vibnewx = str(getDesktop(0).size().width() - 80)
     sknew = '<screen name="vInputBox" position="center,center" size="' + vibnewx + ',70" title="Input...">\n'
-    sknew = sknew + '<widget name="text" position="5,5" size="1270,25" font="Console;16"/>\n<widget name="input" position="0,40" size="'
+    sknew = sknew + '<widget name="text" position="5,5" size="1270,35" font="Console;16"/>\n<widget name="input" position="0,40" size="'
     sknew = sknew + vibnewx + ',30" font="Console;22"/>\n</screen>'
     skin = sknew
 
